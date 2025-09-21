@@ -1,0 +1,147 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 213 27% 95%; /* Light Gray #F0F4F8 */
+    --foreground: 210 15% 25%; /* Dark Gray for text */
+
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 210 15% 25%;
+
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 210 15% 25%;
+
+    --primary: 207 88% 68%; /* Calm Blue #64B5F6 */
+    --primary-foreground: 207 60% 15%; /* Dark Blue for text on primary */
+
+    --secondary: 210 30% 88%; /* Lighter shade of background */
+    --secondary-foreground: 210 15% 30%;
+
+    --muted: 210 30% 92%; /* Even lighter shade */
+    --muted-foreground: 210 15% 45%; /* Slightly darker muted text */
+
+    --accent: 125 39% 75%; /* Soft Green #A5D6A7 */
+    --accent-foreground: 125 40% 20%; /* Dark Green for text on accent */
+
+    --destructive: 0 72% 51%; /* Standard red */
+    --destructive-foreground: 0 0% 98%; /* White */
+
+    --border: 210 20% 85%; /* Light gray border */
+    --input: 210 20% 89%; /* Slightly lighter for input background */
+    --ring: 207 88% 68%; /* Primary color for focus rings */
+
+    --radius: 0.5rem;
+
+    /* Chart colors */
+    --chart-1: hsl(207, 88%, 68%); /* primary */
+    --chart-2: hsl(125, 39%, 65%); /* slightly darker accent */
+    --chart-3: hsl(207, 70%, 55%); 
+    --chart-4: hsl(125, 30%, 55%);
+    --chart-5: hsl(210, 20%, 70%);
+
+
+    /* Sidebar specific colors */
+    --sidebar-background: 0 0% 100%; /* White sidebar */
+    --sidebar-foreground: 210 15% 30%; /* Dark gray for sidebar text */
+    --sidebar-primary: 207 88% 68%; /* Primary color for active items */
+    --sidebar-primary-foreground: 207 60% 15%; /* Dark blue for text on primary in sidebar */
+    --sidebar-accent: 213 27% 92%; /* Lighter gray for hover in sidebar */
+    --sidebar-accent-foreground: 210 15% 25%; /* Darker text for sidebar hover */
+    --sidebar-border: 210 20% 88%; /* Sidebar border */
+    --sidebar-ring: 207 88% 68%; /* Sidebar ring (focus) */
+  }
+
+  .dark {
+    /* Standard dark theme, can be adjusted if needed */
+    --background: 210 10% 12%;
+    --foreground: 210 20% 95%;
+    --card: 210 10% 15%;
+    --card-foreground: 210 20% 95%;
+    --popover: 210 10% 15%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 207 88% 68%;
+    --primary-foreground: 207 60% 15%;
+
+    --secondary: 210 10% 25%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 210 10% 20%;
+    --muted-foreground: 210 15% 65%;
+
+    --accent: 125 39% 75%;
+    --accent-foreground: 125 40% 20%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 210 10% 25%;
+    --input: 210 10% 25%;
+    --ring: 207 88% 68%;
+    
+    --chart-1: hsl(207, 88%, 68%);
+    --chart-2: hsl(125, 39%, 75%);
+    --chart-3: hsl(207, 70%, 60%);
+    --chart-4: hsl(125, 30%, 65%);
+    --chart-5: hsl(210, 20%, 40%);
+
+    --sidebar-background: 210 10% 10%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 207 88% 68%;
+    --sidebar-primary-foreground: 207 60% 15%;
+    --sidebar-accent: 210 10% 20%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 210 10% 25%;
+    --sidebar-ring: 207 88% 68%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* font-family is set by tailwind.config.ts via .font-body class */
+  }
+}
+
+/* Hide the 'X' close button in DialogContent when data-hide-close-button="true" */
+[data-hide-close-button="true"] > button.absolute.right-4.top-4 {
+  display: none;
+}
+
+/* Sidebar active item indicator styles */
+@layer components {
+  /* Styles for the active vertical line */
+  [data-sidebar="menu-button"][data-active="true"]::before,
+  [data-sidebar="menu-sub-button"][data-active="true"]::before {
+    content: "";
+    position: absolute;
+    left: 0.125rem; /* 2px from left edge of button - MODIFIED */
+    top: 15%;      /* Start 15% from the top of the button */
+    bottom: 15%;   /* End 15% from the bottom of the button (covers 70% height) */
+    width: 2px;    /* Thickness of the line */
+    background-color: hsl(var(--primary)); /* Blue color from theme */
+    border-radius: 1px; /* Slightly rounded ends for the line */
+    
+    transform-origin: center center; /* Animation origin for vertical scaling */
+    animation: growVerticalLineFromMiddle 0.2s ease-out forwards; /* Animation properties */
+  }
+
+  /* Keyframes for the animation */
+  @keyframes growVerticalLineFromMiddle {
+    from {
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    to {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+}
+
